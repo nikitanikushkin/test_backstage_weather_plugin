@@ -1,26 +1,34 @@
 # Introduction
 
-This is a standard Backstage application with a custom plugin that displays current weather in the user's location
+This is a standard Backstage application with a custom plugin that displays current weather in the user's location.
 
-The plugin page `https://<hostname>/weather` displays the current weather, as well as the weather is included to the upper left corner on all website pages
+The plugin page `https://<hostname>/weather` displays the current weather, as well as the weather is included in the upper left corner on all website pages.
 
-The displayed data:
+The displayed data includes:
 
 * Current temperature
 * Icon of the weather (cloudy, sunny, rainy, etc)
 * Humidity
 
-The user location is detected by using [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API): the user has to agree with location detection, otherwise, the plugin will return `Unknown location` instead of weather
+Weather is received via API key from [OpenWeather website](https://openweathermap.org/).
 
-Backstage also requires PostgreSQL database that may be deployed via `docker-compose.yaml` file
+The user location is detected by using [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API): the user has to agree with location detection, otherwise, the plugin will return `Unknown location` instead of weather. This API requires Backstage to work via HTTPS.
+
+Backstage also requires PostgreSQL database that may be deployed via `docker-compose.yaml` file.
 
 # How to start the application?
+
+1. Clone this repository locally to some folder and navigate to it:
+
+    ```
+    git clone https://github.com/nikitanikushkin/test_backstage_weather_plugin.git test_backstage_weather_plugin && cd $_
+    ```
 
 1. Go to [OpenWeather website](https://home.openweathermap.org/users/sign_up) and create an account to receive an API key
 
 1. Update `.env` file:
 
-    > :warning: ** `BACKSTAGE_HOSTNAME`, `POSTGRES_HOSTNAME` and `WEATHER_API_KEY` usually have to be updated, while the left vars maybe by left default**
+    > :warning: `BACKSTAGE_HOSTNAME`**,** `POSTGRES_HOSTNAME` **and** `WEATHER_API_KEY` **usually have to be updated, while the left vars maybe by left default**
 
     | Environment Variable | Description |
     | --- | --- |
