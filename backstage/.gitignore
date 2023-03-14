@@ -56,3 +56,6 @@ app-config.yaml
 # certs
 cert.pem
 private_key.pem
+
+# plugin file
+plugins/weather/src/components/WeatherFetchComponent/WeatherFetchComponent.tsx
