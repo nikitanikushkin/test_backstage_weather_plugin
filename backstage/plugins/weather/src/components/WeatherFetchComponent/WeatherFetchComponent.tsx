@@ -1,84 +1,40 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableColumn, Progress } from '@backstage/core-components';
+import { Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import useAsync from 'react-use/lib/useAsync';
 
-const useStyles = makeStyles({
-  avatar: {
-    height: 32,
-    width: 32,
-    borderRadius: '50%',
-  },
-});
-
-type User = {
-  gender: string; // "male"
-  name: {
-    title: string; // "Mr",
-    first: string; // "Duane",
-    last: string; // "Reed"
-  };
-  location: object; // {street: {number: 5060, name: "Hickory Creek Dr"}, city: "Albany", state: "New South Wales",…}
-  email: string; // "duane.reed@example.com"
-  login: object; // {uuid: "4b785022-9a23-4ab9-8a23-cb3fb43969a9", username: "blackdog796", password: "patch",…}
-  dob: object; // {date: "1983-06-22T12:30:23.016Z", age: 37}
-  registered: object; // {date: "2006-06-13T18:48:28.037Z", age: 14}
-  phone: string; // "07-2154-5651"
-  cell: string; // "0405-592-879"
-  id: {
-    name: string; // "TFN",
-    value: string; // "796260432"
-  };
-  picture: { medium: string }; // {medium: "https://randomuser.me/api/portraits/men/95.jpg",…}
-  nat: string; // "AU"
-};
-
-type DenseTableProps = {
-  users: User[];
-};
-
-export const DenseTable = ({ users }: DenseTableProps) => {
-  const classes = useStyles();
-
-  const columns: TableColumn[] = [
-    { title: 'Avatar', field: 'avatar' },
-    { title: 'Name', field: 'name' },
-    { title: 'Email', field: 'email' },
-    { title: 'Nationality', field: 'nationality' },
-  ];
-
-  const data = users.map(user => {
-    return {
-      avatar: (
-        <img
-          src={user.picture.medium}
-          className={classes.avatar}
-          alt={user.name.first}
-        />
-      ),
-      name: `${user.name.first} ${user.name.last}`,
-      email: user.email,
-      nationality: user.nat,
-    };
+function getUrl(): Promise<{url: string}> {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const units = "metric";
+        const appid = "17cbc29989ccaf30a9af09eb65ea1e09";
+	const url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${appid}&units=${units}`;
+        resolve(url);
+      }, (error) => {
+        reject(new Error(`Something went wrong: ${error.message}`));
+      });
+    } else {
+      reject(new Error('Geolocation is not supported by this browser.'));
+    }
   });
+}
 
-  return (
-    <Table
-      title="Weather User List (fetching data from randomuser.me)"
-      options={{ search: false, paging: false }}
-      columns={columns}
-      data={data}
-    />
-  );
-};
+
+async function fetchData(): Promise<any> {
+  try {
+    const url = await getUrl();
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Something went wrong: ${error}`);
+    return "Unknown"
+  }
+}
 
 export const WeatherFetchComponent = () => {
-  const { value, loading, error } = useAsync(async (): Promise<User[]> => {
-    const response = await fetch('https://randomuser.me/api/?results=20');
-    const data = await response.json();
-    return data.results;
-  }, []);
+  const { value, loading, error } = useAsync(fetchData);
 
   if (loading) {
     return <Progress />;
@@ -86,5 +42,20 @@ export const WeatherFetchComponent = () => {
     return <Alert severity="error">{error.message}</Alert>;
   }
 
-  return <DenseTable users={value || []} />;
+  console.log(value)
+
+  if ( value === "Unknown" ) {
+    return(
+      <div>
+        <p>Unknown location</p>
+      </div>)
+  } else {
+    const icon_url = `http://openweathermap.org/img/wn/${value.weather[0].icon}.png`;
+    return (
+      <div>
+        <h3>{value.name}</h3>
+        <p>{value.main.temp}°C <img src={icon_url}/> {value.main.humidity}%</p>
+      </div>
+    )
+  }
 };
