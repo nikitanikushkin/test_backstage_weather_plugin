@@ -49,3 +49,10 @@ site
 
 # vscode database functionality support files
 *.session.sql
+
+# dev configuration file
+app-config.yaml
+
+# certs
+cert.pem
+private_key.pem
