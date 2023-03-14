@@ -1,9 +1,18 @@
 version: '3'
 services:
   postgres:
-    image: docker.io/postgres:15.1
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    image: ${POSTGRES_IMAGE_PATH}:${POSTGRES_IMAGE_TAG}
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1qazXSW@
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - ${POSTGRES_DATA}:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER}
+      interval: 1s
+      timeout: 1s
+      retries: 30
