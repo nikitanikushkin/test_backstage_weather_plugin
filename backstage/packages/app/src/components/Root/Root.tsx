@@ -26,6 +26,8 @@ import {
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { Typography, Grid } from '@material-ui/core';
+import { WeatherCard } from '@internal/plugin-weather';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -58,6 +60,9 @@ const SidebarLogo = () => {
 export const Root = ({ children }: PropsWithChildren<{}>) => (
   <SidebarPage>
     <Sidebar>
+      <Grid item>
+        <WeatherCard />
+      </Grid>
       <SidebarLogo />
       <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
         <SidebarSearchModal />

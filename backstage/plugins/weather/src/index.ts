@@ -1,1 +1,1 @@
-export { weatherPlugin, WeatherPage } from './plugin';
+export { weatherPlugin, WeatherPage, WeatherCard  } from './plugin';
