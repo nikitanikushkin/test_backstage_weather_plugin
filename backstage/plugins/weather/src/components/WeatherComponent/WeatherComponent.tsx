@@ -9,9 +9,9 @@ import {
   HeaderLabel,
   SupportButton,
 } from '@backstage/core-components';
-import { ExampleFetchComponent } from '../ExampleFetchComponent';
+import { WeatherFetchComponent } from '../WeatherFetchComponent';
 
-export const ExampleComponent = () => (
+export const WeatherComponent = () => (
   <Page themeId="tool">
     <Header title="Welcome to weather!" subtitle="Optional subtitle">
       <HeaderLabel label="Owner" value="Team X" />
@@ -30,7 +30,7 @@ export const ExampleComponent = () => (
           </InfoCard>
         </Grid>
         <Grid item>
-          <ExampleFetchComponent />
+          <WeatherFetchComponent />
         </Grid>
       </Grid>
     </Content>

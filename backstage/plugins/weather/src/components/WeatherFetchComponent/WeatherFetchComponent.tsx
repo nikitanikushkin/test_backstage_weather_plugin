@@ -65,7 +65,7 @@ export const DenseTable = ({ users }: DenseTableProps) => {
 
   return (
     <Table
-      title="Example User List (fetching data from randomuser.me)"
+      title="Weather User List (fetching data from randomuser.me)"
       options={{ search: false, paging: false }}
       columns={columns}
       data={data}
@@ -73,7 +73,7 @@ export const DenseTable = ({ users }: DenseTableProps) => {
   );
 };
 
-export const ExampleFetchComponent = () => {
+export const WeatherFetchComponent = () => {
   const { value, loading, error } = useAsync(async (): Promise<User[]> => {
     const response = await fetch('https://randomuser.me/api/?results=20');
     const data = await response.json();

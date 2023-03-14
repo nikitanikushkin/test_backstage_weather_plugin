@@ -13,7 +13,7 @@ export const WeatherPage = weatherPlugin.provide(
   createRoutableExtension({
     name: 'WeatherPage',
     component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
+      import('./components/WeatherComponent').then(m => m.WeatherComponent),
     mountPoint: rootRouteRef,
   }),
 );
