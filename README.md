@@ -20,19 +20,19 @@ Backstage also requires PostgreSQL database that may be deployed via `docker-com
 
 1. Update `.env` file:
 
-    > Note: `BACKSTAGE_HOSTNAME`, `POSTGRES_HOSTNAME` and `WEATHER_API_KEY` usually have to be updated, while the left vars maybe by left default
+    > :warning: ** `BACKSTAGE_HOSTNAME`, `POSTGRES_HOSTNAME` and `WEATHER_API_KEY` usually have to be updated, while the left vars maybe by left default**
 
-| Environment Variable | Description |
-| --- | --- |
-| `BACKSTAGE_HOSTNAME` | Has to be set either to `localhost` or specific IP address depending on the network machine configuration where the application is launched. For example, for VM in `Oracle VM VirtualBox` with `Bridged Adapter`, it has to set to IPv4 of the default adapter, e.g. `enp0s3` |
-| `POSTGRES_HOSTNAME` | Has to be set either to `localhost` or specific IP address depending on the network machine configuration where the application is launched. Backstage application has to be able to connect to PostgreSQL by using this hostname or IP. For example, for VM in `Oracle VM VirtualBox` with `Bridged Adapter`, it has to set to IPv4 of the defaul adapter, e.g. `enp0s3` |
-| `POSTGRES_CONTAINER_NAME` | Is a name of PostgreSQL docker container |
-| `POSTGRES_IMAGE_PATH` | Is PostgreSQL image path |
-| `POSTGRES_IMAGE_TAG` | Is PostgreSQL image tag |
-| `POSTGRES_USER` | Is a root account for PostgreSQL |
-| `POSTGRES_PASSWORD` | Is a root password for PostgreSQL |
-| `POSTGRES_PORT` | Is PostgreSQL port |
-| `WEATHER_API_KEY` | Is generated API key on [OpenWeather website](https://home.openweathermap.org/api_keys) |
+    | Environment Variable | Description |
+    | --- | --- |
+    | `BACKSTAGE_HOSTNAME` | Has to be set either to `localhost` or specific IP address depending on the network machine configuration where the application is launched. For example, for VM in `Oracle VM VirtualBox` with `Bridged Adapter`, it has to set to IPv4 of the default adapter, e.g. `enp0s3` |
+    | `POSTGRES_HOSTNAME` | Has to be set either to `localhost` or specific IP address depending on the network machine configuration where the application is launched. Backstage application has to be able to connect to PostgreSQL by using this hostname or IP. For example, for VM in `Oracle VM VirtualBox` with `Bridged Adapter`, it has to set to IPv4 of the defaul adapter, e.g. `enp0s3` |
+    | `POSTGRES_CONTAINER_NAME` | Is a name of PostgreSQL docker container |
+    | `POSTGRES_IMAGE_PATH` | Is PostgreSQL image path |
+    | `POSTGRES_IMAGE_TAG` | Is PostgreSQL image tag |
+    | `POSTGRES_USER` | Is a root account for PostgreSQL |
+    | `POSTGRES_PASSWORD` | Is a root password for PostgreSQL |
+    | `POSTGRES_PORT` | Is PostgreSQL port |
+    | `WEATHER_API_KEY` | Is generated API key on [OpenWeather website](https://home.openweathermap.org/api_keys) |
 
 
 1. Start PostgreSQL database server via Docker Compose:
