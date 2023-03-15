@@ -69,7 +69,7 @@ Ports `7007` and `3000` have to be opened in the firewall.
     ./backstage_prepare.sh
     ```
 
-    If you made a mistake in `.env` file but realesed it only after running this script, do not worry, update `.env` and run the script again.
+    If you made a mistake in `.env` file but realized it only after running this script, do not worry, update `.env` and run the script again.
 
 1. Start PostgreSQL database server via Docker Compose:
 
