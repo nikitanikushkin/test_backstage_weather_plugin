@@ -46,33 +46,33 @@ Ports `7007` and `3000` have to be opened in the firewall.
 
 1. Go to [OpenWeather website](https://home.openweathermap.org/users/sign_up) and create an account to receive an API key
 
-1. Update `.env` file:
+1. Copy `.env.example` to `.env` file, open `.env` one and update it accordingly:
 
-    > :warning: `BACKSTAGE_HOSTNAME`**,** `POSTGRES_HOSTNAME` **and** `WEATHER_API_KEY` **usually have to be updated, while the left vars maybe by left default**
+
+    > :warning: `BACKSTAGE_HOSTNAME`**,** `POSTGRES_HOSTNAME` **and** `WEATHER_API_KEY` **only are usually have to be updated, while the left envs vars maybe by kept as is**
 
     | Environment Variable | Description |
     | --- | --- |
-    | `BACKSTAGE_HOSTNAME` | Has to be set either to `localhost` or specific IP address depending on the network machine configuration where the application is launched. For example, for VM in `Oracle VM VirtualBox` with `Bridged Adapter`, it has to set to IPv4 of the default adapter, e.g. `enp0s3` |
-    | `POSTGRES_HOSTNAME` | Has to be set either to `localhost` or specific IP address depending on the network machine configuration where the application is launched. Backstage application has to be able to connect to PostgreSQL by using this hostname or IP. For example, for VM in `Oracle VM VirtualBox` with `Bridged Adapter`, it has to set to IPv4 of the defaul adapter, e.g. `enp0s3` |
-    | `POSTGRES_CONTAINER_NAME` | Is a name of PostgreSQL docker container |
-    | `POSTGRES_IMAGE_PATH` | Is PostgreSQL image path |
-    | `POSTGRES_IMAGE_TAG` | Is PostgreSQL image tag |
-    | `POSTGRES_USER` | Is a root account for PostgreSQL |
-    | `POSTGRES_PASSWORD` | Is a root password for PostgreSQL |
-    | `POSTGRES_PORT` | Is PostgreSQL port |
-    | `WEATHER_API_KEY` | Is generated API key on [OpenWeather website](https://home.openweathermap.org/api_keys) |
+    | `BACKSTAGE_HOSTNAME` | The hostname has to be set either to domain name or`localhost` or a specific IP address, depending on the network configuration of the machine where the application is launched. For example, if running on a virtual machine in `Oracle VM VirtualBox` with `Bridged Adapter` option, the hostname should be set to the IPv4 address of the default adapter, such as `enp0s3`.
+    | `POSTGRES_HOSTNAME` | The hostname has to be set either to domain name or `localhost` or a specific IP address, depending on the network configuration of the machine where the application is launched. The Backstage application must be able to connect to PostgreSQL using this hostname or IP address. For example, if running on a virtual machine in `Oracle VM VirtualBox` with `Bridged Adapter` option, the hostname should be set to the IPv4 address of the default adapter, such as `enp0s3`.
+    | `POSTGRES_CONTAINER_NAME` | Name of the PostgreSQL Docker container |
+    | `POSTGRES_IMAGE_PATH` | Path of the PostgreSQL Docker image |
+    | `POSTGRES_IMAGE_TAG` | Tag of the PostgreSQL Docker image |
+    | `POSTGRES_USER` | Root account for PostgreSQL |
+    | `POSTGRES_PASSWORD` | Root password for PostgreSQL |
+    | `POSTGRES_PORT` | PostgreSQL port |
+    | `WEATHER_API_KEY` | API key generated on [OpenWeather website](https://home.openweathermap.org/api_keys) |
 
+1. Execute `backstage_prepare.sh` script, to update Backstage configuration file `./backstage/app-config.yaml`, generate required self-signed HTTPS certs and set the required weather API key using data from `.env` file:
+
+    ```
+    ./backstage_prepare.sh
+    ```
 
 1. Start PostgreSQL database server via Docker Compose:
 
     ```
     docker-compose up -d
-    ```
-
-1. Update Backstage configuration file `./backstage/app-config.yaml`, generate required HTTPS certs and set the required weather API key by executing `backstage_prepare.sh` script:
-
-    ```
-    ./backstage_prepare.sh
     ```
     
 1. Navigate to `backstage` folder and start Backstage:
@@ -98,7 +98,6 @@ Ports `7007` and `3000` have to be opened in the firewall.
     [0] <i> [webpack-dev-server] On Your Network (IPv4): https://192.168.178.104:3000/
     ```
     
-1. Open the browser, navigate under URL received at the previous step, e.g. `https://192.168.178.104:3000/`, allow location detection and find the weather in the upper left corner
+1. Open the browser, navigate under URL received at the previous step, e.g. `https://192.168.178.104:3000/`, allow location detection and find the weather in the upper left corner.
 
-1. Navigate to `http://<hostname>:3000/weather` page to open weather plugin page
-
+1. Navigate to `http://<hostname>:3000/weather` page to open weather plugin page.
