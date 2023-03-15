@@ -75,10 +75,22 @@ Ports `7007` and `3000` have to be opened in the firewall.
     docker-compose up -d
     ```
     
-1. Navigate to `backstage` folder and start Backstage:
+1. Navigate to `backstage` folder:
 
     ```
     cd backstage && yarn dev
+    ```
+
+1. Install Backstage dependencies:
+
+    ```
+    yarn install --frozen-lockfile
+    ```
+
+1. Start Backstage application:
+
+    ```
+    yarn dev
     ```
 
 1. In the command output find the URL under which one Backstage may be accessed:
