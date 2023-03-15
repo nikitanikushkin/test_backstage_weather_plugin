@@ -12,9 +12,6 @@ lerna-debug.log*
 # Coverage directory generated when running tests with coverage
 coverage
 
-# Dependencies
-node_modules/
-
 # Yarn 3 files
 .pnp.*
 .yarn/*

@@ -9,7 +9,7 @@ function getUrl(): Promise<{url: string}> {
       navigator.geolocation.getCurrentPosition((position) => {
         const units = "metric";
         const appid = "${WEATHER_API_KEY}";
-	const url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${appid}&units=${units}`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${appid}&units=${units}`;
         resolve(url);
       }, (error) => {
         reject(new Error(`Something went wrong: ${error.message}`));
@@ -25,6 +25,10 @@ async function fetchData(): Promise<any> {
   try {
     const url = await getUrl();
     const response = await fetch(url);
+    if (response.status !== 200) {
+      console.error(`Cannot fetch weather: ${response.status}`)
+      return(response.status)
+    }
     const data = await response.json();
     return data;
   } catch (error) {
@@ -42,13 +46,21 @@ export const WeatherFetchComponent = () => {
     return <Alert severity="error">{error.message}</Alert>;
   }
 
-  console.log(value)
-
   if ( value === "Unknown" ) {
     return(
       <div>
-        <p>Unknown location</p>
-      </div>)
+        <p>Cannot detect location</p>
+      </div>
+    )
+  } else if ( value === 401 ) {
+    return(
+      <div>
+        <p>401 error was returned</p>
+        <p>Maybe wrong API key was set</p>
+        <p>Or it is not propagated yet?</p>
+        <p>Check browser console</p>
+      </div>
+    )
   } else {
     const icon_url = `http://openweathermap.org/img/wn/${value.weather[0].icon}.png`;
     return (
@@ -59,3 +71,4 @@ export const WeatherFetchComponent = () => {
     )
   }
 };
+
