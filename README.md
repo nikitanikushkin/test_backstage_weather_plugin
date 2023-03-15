@@ -80,7 +80,7 @@ Ports `7007` and `3000` have to be opened in the firewall.
 1. Navigate to `backstage` folder:
 
     ```
-    cd backstage && yarn dev
+    cd backstage
     ```
 
 1. Install Backstage dependencies:
