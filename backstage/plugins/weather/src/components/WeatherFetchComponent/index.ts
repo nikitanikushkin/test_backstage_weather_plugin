@@ -1,0 +1,1 @@
+export { WeatherFetchComponent } from './WeatherFetchComponent';
