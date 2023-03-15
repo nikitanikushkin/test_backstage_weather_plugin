@@ -1,22 +1,42 @@
-# Introduction
+## Introduction
 
-This is a standard Backstage application with a custom plugin that displays current weather in the user's location.
+This is a standard Backstage application with a custom plugin that displays the current weather in the user's location. 
 
-The plugin page `https://<hostname>/weather` displays the current weather, as well as the weather is included in the upper left corner on all website pages.
+The plugin page, located at `https://<hostname>/weather`, displays the current weather. 
+
+Additionally, the weather is displayed in the upper left corner of all website pages.
 
 The displayed data includes:
 
-* Current temperature
-* Icon of the weather (cloudy, sunny, rainy, etc)
-* Humidity
+- Current temperature
+- Weather icon (cloudy, sunny, rainy, etc.)
+- Humidity
 
-Weather is received via API key from [OpenWeather website](https://openweathermap.org/).
+# Prerequirements
 
-The user location is detected by using [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API): the user has to agree with location detection, otherwise, the plugin will return `Unknown location` instead of weather. This API requires Backstage to work via HTTPS.
+Ports `7007` and `3000` have to be opened in the firewall.
 
-Backstage also requires PostgreSQL database that may be deployed via `docker-compose.yaml` file.
+# How does plugin work?
 
-# How to start the application?
+1. When the user accesses the Backstage website, they are asked to allow geolocation.
+
+    [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) is used to detect the user's location.
+    
+    This Geolocation API requires Backstage to work via HTTPS as it does not work via HTTP.
+    
+1. The Geolocation API returns the user's latitude and longitude.
+1. An API call is sent to the OpenWeather website, specifying the received latitude and longitude.
+
+    This API requires an API key that can be generated on the [OpenWeather website](https://openweathermap.org/).
+    
+1. The response is parsed to extract the temperature, weather description (cloudy, sunny, rainy, etc.), and humidity.
+1. The weather description is used to fetch the corresponding icon from `http://openweathermap.org/img/wn/*.png`.
+1. The final data is displayed in the browser:
+
+    * In the upper left corner of all website pages.
+    * On the plugin page at `https://<hostname>/weather`.
+
+## How to start the application?
 
 1. Clone this repository locally to some folder and navigate to it:
 
@@ -81,3 +101,4 @@ Backstage also requires PostgreSQL database that may be deployed via `docker-com
 1. Open the browser, navigate under URL received at the previous step, e.g. `https://192.168.178.104:3000/`, allow location detection and find the weather in the upper left corner
 
 1. Navigate to `http://<hostname>:3000/weather` page to open weather plugin page
+
